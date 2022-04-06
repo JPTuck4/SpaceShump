@@ -71,7 +71,8 @@ public class Enemy : MonoBehaviour
         GameObject otherGO = coll.gameObject; // a
         if (otherGO.tag == "ProjectileHero")
         { // b
-            Hero.SHIP.AddToScore(score);
+            //Hero.SHIP.AddToScore(score);
+            GameManager.GM.UpdateScore(score);
             Destroy(otherGO); // Destroy the Projectile
             Destroy(gameObject); // Destroy this Enemy GameObject
         }

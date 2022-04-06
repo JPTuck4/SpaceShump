@@ -110,11 +110,11 @@ public class Hero : MonoBehaviour
         // Allow the ship to fire
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            TempFire();
+            FireProjectile();
         }
     }//end Update()
 
-    void TempFire()
+    void FireProjectile()
     { // b
         GameObject projGO = Instantiate<GameObject>(projectilePrefab);
         projGO.transform.position = transform.position;
