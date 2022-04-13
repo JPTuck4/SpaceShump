@@ -39,6 +39,8 @@ public class Hero : MonoBehaviour
 
     GameManager gm; //reference to game manager
 
+    ObjectPool pool; //reference to ObjectPool
+
     [Header("Ship Movement")]
     public float speed = 10;
     public float rollMult = -45;
@@ -47,8 +49,9 @@ public class Hero : MonoBehaviour
     [Space(10)]
 
     [Header("Projectile Settings")]
-    public GameObject projectilePrefab;
     public float projectileSpeed = 40;
+    public AudioClip projectSound; //sound clip of projectile
+    private AudioSource audioSource; //the audio source of the game object
 
     [Space(10)]
 
@@ -91,6 +94,8 @@ public class Hero : MonoBehaviour
     private void Start()
     {
         gm = GameManager.GM; //find the game manager
+        pool = ObjectPool.POOL;
+        audioSource = GetComponent<AudioSource>();
     }//end Start()
 
     // Update is called once per frame (page 551)
@@ -111,15 +116,23 @@ public class Hero : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             FireProjectile();
+            //If there is an audio source
+            if (audioSource != null)
+            {
+                audioSource.PlayOneShot(projectSound); //play projectileSound
+            }
         }
     }//end Update()
 
     void FireProjectile()
     { // b
-        GameObject projGO = Instantiate<GameObject>(projectilePrefab);
-        projGO.transform.position = transform.position;
-        Rigidbody rigidB = projGO.GetComponent<Rigidbody>();
-        rigidB.velocity = Vector3.up * projectileSpeed;
+        GameObject projGO = pool.GetObject();
+        if(projGO != null)
+        {
+            projGO.transform.position = transform.position;
+            Rigidbody rigidB = projGO.GetComponent<Rigidbody>();
+            rigidB.velocity = Vector3.up * projectileSpeed;
+        }
     }
 
 

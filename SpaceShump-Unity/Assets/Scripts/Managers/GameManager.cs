@@ -17,6 +17,9 @@ using UnityEngine.SceneManagement; //libraries for accessing scenes
 
 //Setting the enum outside the class allows for direct access by the enum (classes) name directly in other classes.
 public enum GameState { Title, Playing, BeatLevel, LostLevel, GameOver, Idle };//enum of game states (work like it's own class)
+
+//GameManager required an Audio Source
+[RequireComponent(typeof(AudioSource))]
 public class GameManager : MonoBehaviour
 {
     /*** VARIABLES ***/
@@ -66,6 +69,7 @@ public class GameManager : MonoBehaviour
 
     //static vairables can not be updated in the inspector, however private serialized fileds can be
     [SerializeField] //Access to private variables in editor
+    public int defaultLives;
     private int numberOfLives; //set number of lives in the inspector
     [Tooltip("Does the level get reset when a life is lost")]
     public bool resetLostLevel; //reset the lost level
@@ -75,6 +79,10 @@ public class GameManager : MonoBehaviour
 
     static public int score;  //score value
     public int Score { get { return score; } set { score = value; } }//access to static variable score [get/set methods]
+
+    [Space(10)]
+    public AudioClip backgroundMusicClip; //sound clip for background music
+    private AudioSource audioSource; //reference to the audio source
 
     [Space(10)]
     public string defaultEndMessage = "Game Over";//the end screen message, depends on winning outcome
@@ -137,6 +145,16 @@ public class GameManager : MonoBehaviour
     //Start is called once before the update
     void Start()
     {
+        //if background music exsists
+        if (backgroundMusicClip != null)
+        {
+            audioSource = gm.GetComponent<AudioSource>(); //reference to the Audio Source Component
+            audioSource.volume = 0.5f; //the volume level of the sound
+            audioSource.clip = backgroundMusicClip; //the music clip to play
+            audioSource.loop = true; //loop the music clip
+            audioSource.Play(); //play the clip
+        }//end if (backgroundMusicSource != null)
+
         //if we run play the game from the level instead of start scene
         if (currentSceneName != startScene) { SetDefaultGameStats(); }
 
@@ -172,6 +190,7 @@ public class GameManager : MonoBehaviour
         {
             case GameState.Title:
                 //do nothing
+                numberOfLives = defaultLives;
                 break;
 
             case GameState.Playing:
@@ -191,6 +210,7 @@ public class GameManager : MonoBehaviour
                 break;
 
             case GameState.GameOver:
+                numberOfLives = defaultLives;
                 //do nothing
                 break;
 

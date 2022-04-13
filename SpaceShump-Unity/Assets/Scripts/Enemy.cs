@@ -73,7 +73,8 @@ public class Enemy : MonoBehaviour
         { // b
             //Hero.SHIP.AddToScore(score);
             GameManager.GM.UpdateScore(score);
-            Destroy(otherGO); // Destroy the Projectile
+
+            otherGO.SetActive(false);
             Destroy(gameObject); // Destroy this Enemy GameObject
         }
         else

@@ -23,7 +23,8 @@ public class Projectile : MonoBehaviour
     {
         if (bndCheck.offUp)
         { // a
-            Destroy(gameObject);
+            gameObject.SetActive(false);
+            bndCheck.offUp = false;
         }
 
     }
