@@ -552,7 +552,7 @@ MonoBehaviour:
   copyrightDate: Copyright 2022
   recordHighScore: 1
   defaultHighScore: 0
-  numberOfLives: 3
+  defaultLives: 0
   resetLostLevel: 1
   gameRestartDelay: 2
   backgroundMusicClip: {fileID: 8300000, guid: 0906599c6eeb54c499ba376ba8875a74, type: 3}
@@ -1067,7 +1067,7 @@ MonoBehaviour:
   - {fileID: 1528986412337119425, guid: 1ae5b20b722c35541b5d64c3273c774b, type: 3}
   - {fileID: 7718478594271432384, guid: 23dcfd48c7f6abe408f60e3d6c139ced, type: 3}
   - {fileID: 8506206122165701763, guid: 6a075e8f12d10d44295ad30ed47c6cf1, type: 3}
-  enemySpawnPerSecond: 4
+  enemySpawnPerSecond: 5
   enemyDefaultPadding: 1.5
 --- !u!114 &963194231
 MonoBehaviour:
